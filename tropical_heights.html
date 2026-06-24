@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tropical Heights - Los Santos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --violet: #2D1B5E;
+  --violet-deep: #1A0F3A;
+  --violet-mid: #4A2D8A;
+  --violet-light: #EDE8F8;
+  --rose: #C0503A;
+  --rose-light: #F9E8EF;
+  --gold: #F5C442;
+  --gold-light: #FEF6DC;
+  --orange: #E8873A;
+  --sand: #F5F0FA;
+  --dark: #1A0F3A;
+  --gray: #7A6E90;
+  --border: rgba(74,45,138,0.15);
+  --white: #ffffff;
+  --bg-dark: #140C30;
+  --bg-card: #1E1240;
+  --text-main: #F0EBF8;
+  --text-muted: rgba(240,235,248,0.6);
+}
+
+body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--text-main); overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(20,12,48,0.97); backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(245,196,66,0.15);
+  padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--gold); letter-spacing: 0.02em; cursor: pointer;
+}
+.nav-logo span { color: #E8607E; }
+.nav-links { display: flex; gap: 4px; }
+.nav-btn {
+  font-size: 13px; font-weight: 500; padding: 7px 14px;
+  border-radius: 20px; border: none; background: transparent;
+  color: var(--text-muted); cursor: pointer; transition: all 0.18s;
+  font-family: 'Inter', sans-serif;
+}
+.nav-btn:hover { background: rgba(245,196,66,0.1); color: var(--gold); }
+.nav-btn.active { background: var(--violet-mid); color: var(--white); }
+
+/* PAGES */
+.page { display: none; min-height: calc(100vh - 64px); }
+.page.active { display: block; }
+
+/* BANNIERE */
+.banner-slot {
+  width: 100%; height: 320px;
+  background: var(--bg-card);
+  display: flex; align-items: center; justify-content: center;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden; position: relative;
+}
+.banner-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.banner-placeholder {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  color: var(--text-muted); font-size: 13px; text-align: center;
+}
+.banner-placeholder-icon { font-size: 36px; opacity: 0.4; }
+
+/* HERO TEXTE */
+.hero-text {
+  padding: 3.5rem 2rem 3rem;
+  max-width: 900px; margin: 0 auto;
+}
+.hero-badge {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  background: rgba(245,196,66,0.12); color: var(--gold);
+  padding: 5px 16px; border-radius: 20px;
+  border: 1px solid rgba(245,196,66,0.25);
+  margin-bottom: 1.25rem;
+}
+.hero-text h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5vw, 54px); font-weight: 900;
+  line-height: 1.15; margin-bottom: 1rem; color: var(--text-main);
+}
+.hero-text h1 em { color: var(--gold); font-style: normal; }
+.hero-text p {
+  font-size: 16px; line-height: 1.75;
+  color: var(--text-muted); max-width: 540px; margin-bottom: 2rem;
+}
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary {
+  font-size: 14px; font-weight: 600; padding: 12px 26px;
+  background: var(--gold); color: var(--violet-deep);
+  border: none; border-radius: 30px; cursor: pointer;
+  font-family: 'Inter', sans-serif; transition: transform 0.15s, background 0.15s;
+}
+.btn-primary:hover { background: #f0b820; transform: translateY(-1px); }
+.btn-secondary {
+  font-size: 14px; font-weight: 500; padding: 12px 26px;
+  background: transparent; color: var(--text-main);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 30px; cursor: pointer;
+  font-family: 'Inter', sans-serif; transition: background 0.15s;
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.07); }
+
+/* SECTIONS */
+.section { padding: 3rem 2rem; max-width: 900px; margin: 0 auto; }
+.section-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #E8607E; margin-bottom: 0.5rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 3.5vw, 32px); font-weight: 700;
+  color: var(--text-main); margin-bottom: 0.75rem; line-height: 1.2;
+}
+.section-body { font-size: 15px; line-height: 1.75; color: var(--text-muted); max-width: 620px; }
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* FEATURES */
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 14px; margin-top: 1.75rem; }
+.feature-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 1.4rem 1.25rem;
+  transition: transform 0.18s, border-color 0.18s;
+}
+.feature-card:hover { transform: translateY(-2px); border-color: rgba(245,196,66,0.3); }
+.feature-icon { font-size: 24px; margin-bottom: 0.75rem; }
+.feature-name { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 0.4rem; }
+.feature-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+/* INFOS */
+.infos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 1.5rem; }
+.info-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1rem 1.2rem;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.info-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
+.info-val { font-size: 14px; font-weight: 500; color: var(--text-main); line-height: 1.4; }
+
+/* CALLOUTS */
+.callout {
+  border-radius: 0 14px 14px 0; padding: 1.1rem 1.4rem;
+  font-size: 14px; line-height: 1.7; margin-top: 1rem;
+}
+.callout strong { font-weight: 600; }
+.callout-violet { background: rgba(74,45,138,0.25); color: var(--text-main); border-left: 3px solid var(--violet-mid); }
+.callout-gold { background: rgba(245,196,66,0.1); color: var(--text-main); border-left: 3px solid var(--gold); }
+
+/* PAGE HEADER SIMPLE */
+.page-header {
+  background: var(--bg-card); border-bottom: 1px solid var(--border);
+  padding: 2.5rem 2rem;
+}
+.page-header-inner { max-width: 900px; margin: 0 auto; }
+.page-header-eye { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
+.page-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(24px, 4vw, 36px); font-weight: 900; color: var(--text-main); margin-bottom: 0.5rem; }
+.page-header h2 em { color: var(--gold); font-style: normal; }
+.page-header p { font-size: 14px; color: var(--text-muted); max-width: 520px; }
+
+/* CARTE */
+.carte-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1.25rem; }
+.carte-filter-btn {
+  font-size: 12px; font-weight: 500; padding: 7px 16px;
+  border-radius: 20px; border: 1px solid rgba(255,255,255,0.15);
+  background: transparent; color: var(--text-muted);
+  cursor: pointer; transition: all 0.15s; font-family: 'Inter', sans-serif;
+}
+.carte-filter-btn:hover, .carte-filter-btn.active {
+  background: var(--gold); color: var(--violet-deep); border-color: var(--gold);
+}
+.carte-content { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem; }
+.carte-section { margin-bottom: 2.5rem; }
+.carte-section-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold);
+  padding-bottom: 0.5rem; border-bottom: 1px solid rgba(245,196,66,0.2);
+  margin-bottom: 1rem;
+}
+.carte-note {
+  font-size: 12px; font-style: italic; color: var(--text-muted);
+  background: rgba(74,45,138,0.2); border-radius: 10px; padding: 0.75rem 1rem;
+  margin-bottom: 1.5rem; border: 1px solid var(--border);
+}
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 10px; }
+.menu-item {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 0.9rem 1rem;
+  transition: border-color 0.15s;
+}
+.menu-item:hover { border-color: rgba(245,196,66,0.3); }
+.menu-item-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 4px; }
+.menu-item-name { font-size: 14px; font-weight: 600; color: var(--text-main); }
+.menu-badge {
+  font-size: 10px; font-weight: 700; padding: 2px 9px;
+  border-radius: 10px; background: rgba(245,196,66,0.15); color: var(--gold);
+  white-space: nowrap; flex-shrink: 0;
+}
+.menu-badge-violet { background: rgba(74,45,138,0.4); color: #BBA8F0; }
+.menu-item-desc { font-size: 12px; color: var(--text-muted); line-height: 1.55; }
+
+/* EVENEMENTS */
+.events-content { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem; }
+.event-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 1.4rem;
+  display: flex; gap: 18px; align-items: flex-start;
+  margin-bottom: 12px; transition: transform 0.15s, border-color 0.15s;
+}
+.event-card:hover { transform: translateY(-2px); border-color: rgba(245,196,66,0.25); }
+.event-date {
+  background: rgba(74,45,138,0.5); border: 1px solid var(--border);
+  border-radius: 12px; padding: 0.6rem 0.9rem;
+  text-align: center; flex-shrink: 0; min-width: 60px;
+}
+.event-day { font-size: 24px; font-weight: 700; color: var(--gold); line-height: 1; }
+.event-month { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+.event-body { flex: 1; }
+.event-name { font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 3px; }
+.event-meta { font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+.event-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 8px; }
+.event-tag {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  padding: 2px 10px; border-radius: 20px;
+}
+.event-tag-gold { background: rgba(245,196,66,0.15); color: var(--gold); }
+.event-tag-violet { background: rgba(74,45,138,0.4); color: #BBA8F0; }
+.event-tag-rose { background: rgba(192,80,58,0.25); color: #F0A090; }
+.event-price { font-size: 13px; font-weight: 700; color: var(--gold); flex-shrink: 0; align-self: center; white-space: nowrap; }
+
+/* CONTACT */
+.contact-content { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.contact-info { display: flex; flex-direction: column; gap: 12px; }
+.contact-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1rem 1.2rem;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.contact-form-block { display: flex; flex-direction: column; gap: 12px; }
+.contact-form-block label { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; display: block; text-transform: uppercase; letter-spacing: 0.06em; }
+.contact-form-block input,
+.contact-form-block textarea,
+.contact-form-block select {
+  width: 100%; font-size: 14px; font-family: 'Inter', sans-serif;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-card); color: var(--text-main);
+  outline: none; transition: border-color 0.15s;
+}
+.contact-form-block input:focus,
+.contact-form-block textarea:focus,
+.contact-form-block select:focus { border-color: var(--gold); }
+.contact-form-block select option { background: var(--bg-card); color: var(--text-main); }
+.contact-form-block textarea { resize: vertical; min-height: 90px; }
+.btn-form {
+  font-size: 14px; font-weight: 600; padding: 12px 28px;
+  background: var(--violet-mid); color: var(--white);
+  border: none; border-radius: 30px; cursor: pointer;
+  font-family: 'Inter', sans-serif; transition: background 0.15s, transform 0.15s;
+  align-self: flex-start;
+}
+.btn-form:hover { background: var(--violet); transform: translateY(-1px); }
+.form-success {
+  display: none; background: rgba(74,45,138,0.3); border-radius: 12px;
+  padding: 1rem 1.25rem; color: #BBA8F0;
+  font-size: 14px; font-weight: 500; text-align: center;
+  border: 1px solid var(--border);
+}
+
+/* VIP */
+.vip-perks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); gap: 12px; margin-bottom: 2.5rem; }
+.vip-perk {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.1rem;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; gap: 8px; transition: border-color 0.15s;
+}
+.vip-perk:hover { border-color: rgba(245,196,66,0.3); }
+.vip-perk-icon { font-size: 24px; }
+.vip-perk-name { font-size: 13px; font-weight: 600; color: var(--text-main); }
+.vip-perk-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+.vip-form {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 20px; padding: 2rem;
+}
+.vip-form-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--text-main); margin-bottom: 0.4rem; }
+.vip-form-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 1.5rem; }
+.vip-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.vip-form-group { display: flex; flex-direction: column; gap: 5px; }
+.vip-form-group label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.vip-form-group input,
+.vip-form-group select {
+  font-size: 14px; font-family: 'Inter', sans-serif;
+  padding: 10px 14px; border: 1px solid var(--border);
+  border-radius: 10px; background: var(--bg-dark); color: var(--text-main);
+  outline: none; transition: border-color 0.15s;
+}
+.vip-form-group input:focus,
+.vip-form-group select:focus { border-color: var(--gold); }
+.vip-form-group select option { background: var(--bg-dark); }
+.btn-vip {
+  font-size: 14px; font-weight: 700; padding: 14px 32px;
+  background: var(--gold); color: var(--violet-deep);
+  border: none; border-radius: 30px; cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: transform 0.15s, box-shadow 0.15s; margin-top: 1rem;
+}
+.btn-vip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,196,66,0.3); }
+.vip-nb { font-size: 12px; color: var(--text-muted); margin-top: 0.75rem; font-style: italic; }
+.vip-success { display: none; text-align: center; padding: 2.5rem 1rem; }
+.vip-success-icon { font-size: 44px; margin-bottom: 1rem; }
+.vip-success-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+.vip-success-msg { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+/* PERSONNEL */
+.staff-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 1.5rem; }
+.staff-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 1.25rem 1.5rem;
+  display: flex; align-items: center; gap: 16px;
+}
+.staff-avatar {
+  width: 50px; height: 50px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 15px; flex-shrink: 0;
+}
+.av-gold { background: rgba(245,196,66,0.15); color: var(--gold); border: 1px solid rgba(245,196,66,0.3); }
+.av-rose { background: rgba(232,96,126,0.15); color: #E8607E; border: 1px solid rgba(232,96,126,0.3); }
+.av-violet { background: rgba(74,45,138,0.3); color: #BBA8F0; border: 1px solid rgba(74,45,138,0.5); }
+.staff-name { font-size: 16px; font-weight: 600; color: var(--text-main); }
+.staff-role { font-size: 12px; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 2px; }
+.staff-dob { font-size: 12px; color: var(--text-muted); }
+.staff-badge {
+  margin-left: auto; font-size: 11px; font-weight: 600;
+  padding: 4px 12px; border-radius: 20px;
+  background: rgba(74,45,138,0.35); color: #BBA8F0;
+  border: 1px solid var(--border); white-space: nowrap;
+}
+
+/* FOOTER */
+footer {
+  background: #0D0820; color: rgba(255,255,255,0.3);
+  text-align: center; padding: 2rem; font-size: 13px;
+  border-top: 1px solid var(--border);
+}
+footer strong { color: var(--gold); }
+
+@media (max-width: 620px) {
+  nav { padding: 0 1rem; }
+  .nav-links { gap: 2px; }
+  .nav-btn { font-size: 11px; padding: 6px 9px; }
+  .contact-content { grid-template-columns: 1fr; }
+  .infos-grid { grid-template-columns: 1fr; }
+  .vip-form-grid { grid-template-columns: 1fr; }
+}
+
+/* ===================== ANIMATIONS ===================== */
+
+/* Fade + slide entrant */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245,196,66,0.35); }
+  50%       { box-shadow: 0 0 0 10px rgba(245,196,66,0); }
+}
+
+/* Classes appliquées par JS */
+.anim-ready {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.anim-ready.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero texte */
+.hero-text h1,
+.hero-text p,
+.hero-btns,
+.hero-badge {
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards;
+}
+.hero-badge       { animation-delay: 0.05s; }
+.hero-text h1     { animation-delay: 0.18s; }
+.hero-text p      { animation-delay: 0.32s; }
+.hero-btns        { animation-delay: 0.44s; }
+
+/* Page header */
+.page-header .page-header-eye,
+.page-header h2,
+.page-header p,
+.page-header .carte-filters {
+  opacity: 0;
+  animation: fadeUp 0.5s ease forwards;
+}
+.page-header .page-header-eye  { animation-delay: 0.05s; }
+.page-header h2                 { animation-delay: 0.15s; }
+.page-header p                  { animation-delay: 0.25s; }
+.page-header .carte-filters     { animation-delay: 0.35s; }
+
+/* Banniere */
+.banner-slot {
+  opacity: 0;
+  animation: fadeIn 0.7s ease 0.1s forwards;
+}
+
+/* Bouton VIP pulse */
+.btn-vip {
+  animation: pulse-gold 2.5s ease-in-out infinite;
+}
+
+/* Transition nav onglet active */
+.nav-btn {
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+.nav-btn:hover { transform: translateY(-1px); }
+.nav-btn.active { transform: none; }
+
+/* Glow hover cartes */
+.feature-card:hover {
+  box-shadow: 0 4px 24px rgba(245,196,66,0.1), 0 0 0 1px rgba(245,196,66,0.2);
+}
+.vip-perk:hover {
+  box-shadow: 0 4px 20px rgba(74,45,138,0.25);
+}
+.staff-card {
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.staff-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(245,196,66,0.3);
+  box-shadow: 0 4px 20px rgba(245,196,66,0.08);
+}
+.menu-item {
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
+}
+.menu-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(74,45,138,0.2);
+}
+.event-card {
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.event-card:hover {
+  box-shadow: 0 6px 28px rgba(74,45,138,0.2);
+}
+.info-card {
+  transition: border-color 0.18s ease, transform 0.15s ease;
+}
+.info-card:hover {
+  border-color: rgba(245,196,66,0.25);
+  transform: translateY(-1px);
+}
+
+/* Reset anim quand on change de page */
+.page:not(.active) .hero-text h1,
+.page:not(.active) .hero-text p,
+.page:not(.active) .hero-btns,
+.page:not(.active) .hero-badge,
+.page:not(.active) .page-header .page-header-eye,
+.page:not(.active) .page-header h2,
+.page:not(.active) .page-header p,
+.page:not(.active) .page-header .carte-filters {
+  animation: none;
+  opacity: 0;
+}
+</style>
+</head>
+<body>
+
+<h1 style="position:absolute;left:-9999px">Tropical Heights - Boite de nuit Los Santos</h1>
+
+<nav>
+  <div class="nav-logo" onclick="showPage('entreprise')"><span>T</span>ropical Heights</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showPage('entreprise')">Entreprise</button>
+    <button class="nav-btn" onclick="showPage('carte')">Carte</button>
+    <button class="nav-btn" onclick="showPage('evenements')">Evenements</button>
+    <button class="nav-btn" onclick="showPage('personnel')">Contact</button>
+    <button class="nav-btn" onclick="showPage('vip')" style="color:var(--gold);">VIP</button>
+  </div>
+</nav>
+
+<!-- ENTREPRISE -->
+<div id="page-entreprise" class="page active">
+
+  <!-- BANNIERE : remplacer le contenu du banner-slot par une balise <img src="votre-image.jpg"> -->
+  <div class="banner-slot">
+    <div class="banner-placeholder">
+      <div class="banner-placeholder-icon">🌴</div>
+      <div>Banniere a personnaliser</div>
+      <div style="font-size:11px;margin-top:4px;opacity:0.6">Remplacer par une image dans le code</div>
+    </div>
+  </div>
+
+  <div class="hero-text">
+    <div class="hero-badge">Los Santos, Place des Cubes</div>
+    <h1>La nuit de Los Santos<br>commence <em>ici</em>.</h1>
+    <p>Tropical Heights, c'est la boite de nuit que Los Santos attendait. Ambiance festive, soirées à thème, musique live et cocktails signatures dans un écrin unique.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="showPage('evenements')">Voir les soirées</button>
+      <button class="btn-secondary" onclick="showPage('vip')">Devenir membre VIP</button>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-eyebrow">Le projet</div>
+    <h2 class="section-title">Pourquoi Los Santos avait besoin de nous</h2>
+    <p class="section-body">Los Santos est une ville dynamique, animée de jour comme de nuit, mais qui souffre d'un manque de véritables lieux de fête. Tropical Heights répond à cette attente : un lieu accessible à tous, où l'ambiance, la musique et les rencontres sont au coeur de l'expérience.</p>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🎵</div><div class="feature-name">Musique live et DJ sets</div><div class="feature-desc">Résidents et artistes invités chaque week-end. Programmation variée, ambiance garantie.</div></div>
+      <div class="feature-card"><div class="feature-icon">🍹</div><div class="feature-name">Bar premium</div><div class="feature-desc">Cocktails signatures, spiritueux sélectionnés, mocktails exotiques. Service attentionné.</div></div>
+      <div class="feature-card"><div class="feature-icon">🌴</div><div class="feature-name">Soirees a theme</div><div class="feature-desc">Des soirées pensées pour marquer les esprits. De l'Opening Night aux nuits privées.</div></div>
+      <div class="feature-card"><div class="feature-icon">🔐</div><div class="feature-name">Espace privatisable</div><div class="feature-desc">Lounge et salle entière disponibles pour événements privés et réunions.</div></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-eyebrow">Informations pratiques</div>
+    <h2 class="section-title">Où, quand, comment</h2>
+    <div class="infos-grid">
+      <div class="info-card"><div style="font-size:20px;flex-shrink:0;margin-top:2px;">📍</div><div><div class="info-label">Adresse</div><div class="info-val">Place des Cubes, Los Santos</div></div></div>
+      <div class="info-card"><div style="font-size:20px;flex-shrink:0;margin-top:2px;">🛡️</div><div><div class="info-label">Securite</div><div class="info-val">Équipe de vigiles présente chaque soir</div></div></div>
+      <div class="info-card"><div style="font-size:20px;flex-shrink:0;margin-top:2px;">🤝</div><div><div class="info-label">Partenariats</div><div class="info-val">Ouvert aux collaborations locales</div></div></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-eyebrow">Engagement</div>
+    <h2 class="section-title">Un atout pour toute la ville</h2>
+    <div class="callout callout-violet"><strong>Officiellement :</strong> Boîte de nuit haut de gamme, emplois locaux, partenariats avec la ville, soirées à thème, artistes locaux bienvenus.</div>
+    <div class="callout callout-gold" style="margin-top:10px;"><strong>Privatisation :</strong> Location complète ou partielle pour entreprises, organisations et réunions privées. Contactez-nous pour un devis.</div>
+  </div>
+
+  <footer><strong>Tropical Heights</strong> - Los Santos, Place des Cubes<br><span style="font-size:12px">Direction : Jenna Palmer, Megan Palmer, Roy Palmer</span></footer>
+</div>
+
+<!-- CARTE -->
+<div id="page-carte" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="page-header-eye">Menu</div>
+      <h2>Carte des <em>boissons</em></h2>
+      <p>Une sélection pensée pour des nuits mémorables. Prix établis en accord avec la concurrence locale.</p>
+      <div class="carte-filters">
+        <button class="carte-filter-btn active" onclick="filterCarte('all',this)">Tout voir</button>
+        <button class="carte-filter-btn" onclick="filterCarte('signatures',this)">Signatures</button>
+        <button class="carte-filter-btn" onclick="filterCarte('classiques',this)">Classiques</button>
+        <button class="carte-filter-btn" onclick="filterCarte('sansalcool',this)">Sans alcool</button>
+        <button class="carte-filter-btn" onclick="filterCarte('snacks',this)">Snacks</button>
+      </div>
+    </div>
+  </div>
+  <div class="carte-content">
+    <div class="carte-note">Les prix seront fixés en accord avec la concurrence locale afin de préserver l'équilibre du marché.</div>
+    <div class="carte-section" data-cat="signatures">
+      <div class="carte-section-title">Cocktails signatures maison</div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Viva Los Santos</span><span class="menu-badge">Signature</span></div><div class="menu-item-desc">Rhum epice, liqueur de fruit de la passion, jus d'ananas, sirop de vanille, bitter exotique, flambé au rhum brun</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Jackpot Royale</span><span class="menu-badge">Signature</span></div><div class="menu-item-desc">Vodka infusée à la fraise, champagne, purée de framboise, zeste de citron, perles d'or comestibles</div></div>
+      </div>
+    </div>
+    <div class="carte-section" data-cat="classiques">
+      <div class="carte-section-title">Classiques incontournables</div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Mojito</span><span class="menu-badge menu-badge-violet">Classique</span></div><div class="menu-item-desc">Rhum, menthe, citron vert, sucre, eau gazeuse</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Margarita</span><span class="menu-badge menu-badge-violet">Classique</span></div><div class="menu-item-desc">Tequila, Cointreau, citron vert, sel</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Cosmopolitan</span><span class="menu-badge menu-badge-violet">Classique</span></div><div class="menu-item-desc">Vodka, Cointreau, jus de cranberry, citron vert</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Mai Tai</span><span class="menu-badge menu-badge-violet">Classique</span></div><div class="menu-item-desc">Rhum ambré, rhum blanc, triple sec, orgeat, citron vert</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Old Fashioned</span><span class="menu-badge menu-badge-violet">Classique</span></div><div class="menu-item-desc">Bourbon, sucre, bitter, zeste d'orange</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Piña Colada</span><span class="menu-badge menu-badge-violet">Classique</span></div><div class="menu-item-desc">Rhum, crème de coco, jus d'ananas</div></div>
+      </div>
+    </div>
+    <div class="carte-section" data-cat="classiques">
+      <div class="carte-section-title">Spiritueux et vins</div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="menu-item-name" style="margin-bottom:4px">Whisky, Vodka, Rhum</div><div class="menu-item-desc">Sélection premium sur demande</div></div>
+        <div class="menu-item"><div class="menu-item-name" style="margin-bottom:4px">Champagne et vins</div><div class="menu-item-desc">Carte disponible sur place</div></div>
+      </div>
+    </div>
+    <div class="carte-section" data-cat="sansalcool">
+      <div class="carte-section-title">Sans alcool</div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Sunset Dream</span></div><div class="menu-item-desc">Jus de mangue, purée de framboise, tonic hibiscus, citron vert</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Tropical Kiss</span></div><div class="menu-item-desc">Jus d'ananas, lait de coco, sirop de fraise, basilic frais</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Virgin Mojito</span></div><div class="menu-item-desc">Menthe, citron vert, sucre de canne, eau gazeuse</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Sodas et jus</span></div><div class="menu-item-desc">Coca-Cola, Sprite, Fanta - jus orange, pomme, cranberry, ananas</div></div>
+      </div>
+    </div>
+    <div class="carte-section" data-cat="snacks">
+      <div class="carte-section-title">Apéritifs et snacks</div>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Plateau tapas exotiques</span></div><div class="menu-item-desc">Crevettes épicées, calamars frits, guacamole maison</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Mini-burgers signature</span></div><div class="menu-item-desc">Boeuf wagyu, cheddar affiné, sauce secrète</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Frites de patate douce</span></div><div class="menu-item-desc">Sauce truffe maison</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Planche charcuteries</span></div><div class="menu-item-desc">Fromages et charcuteries selectionnes</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Nachos deluxe</span></div><div class="menu-item-desc">Cheddar fondu, jalapeños, crème aigre, pico de gallo</div></div>
+      </div>
+    </div>
+  </div>
+  <footer><strong>Tropical Heights</strong> - Carte susceptible d'évoluer selon disponibilités</footer>
+</div>
+
+<!-- EVENEMENTS -->
+<div id="page-evenements" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="page-header-eye">Agenda</div>
+      <h2>Prochaines <em>soirées</em></h2>
+      <p>Restez à l'affût. Chaque soirée au Tropical Heights est une expérience à part entière.</p>
+    </div>
+  </div>
+  <div class="events-content">
+
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:2rem;text-align:center;color:var(--text-muted);font-size:14px;line-height:1.7;">
+      <div style="font-size:32px;margin-bottom:0.75rem;">🗓️</div>
+      <div style="font-size:16px;font-weight:600;color:var(--text-main);margin-bottom:0.5rem;">Agenda bientôt disponible</div>
+      Nos prochaines soirées seront annoncées prochainement.<br>Suivez-nous pour ne rien manquer.
+    </div>
+
+    <!--
+    TEMPLATE EVENEMENT - copier/coller et remplir les champs
+
+    <div class="event-card">
+      <div class="event-date">
+        <div class="event-day">JJ</div>
+        <div class="event-month">Mois</div>
+      </div>
+      <div class="event-body">
+        <div class="event-name">Nom de la soirée</div>
+        <div class="event-meta">22h00 - Tropical Heights, Place des Cubes</div>
+        <div class="event-desc">Description de la soirée.</div>
+        <span class="event-tag event-tag-gold">Étiquette</span>
+      </div>
+    </div>
+
+    Options d'étiquette disponibles :
+      event-tag-violet : soirée thème / privatisation
+      event-tag-rose   : soirée signature
+      event-tag-gold   : inauguration / spécial
+    -->
+
+  </div>
+  <footer><strong>Tropical Heights</strong> - Programme susceptible d'évoluer</footer>
+</div>
+
+<!-- CONTACT -->
+<div id="page-personnel" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="page-header-eye">Contact</div>
+      <h2>Nous <em>contacter</em></h2>
+      <p>Réservations, privatisations, partenariats ou simple renseignement, notre équipe vous répond rapidement.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-eyebrow">La direction</div>
+    <h2 class="section-title" style="margin-bottom:1.25rem;">L'équipe Palmer</h2>
+    <div class="staff-grid" style="margin-bottom:2.5rem;">
+      <div class="staff-card">
+        <div class="staff-avatar av-gold">JP</div>
+        <div>
+          <div class="staff-role">Patronne</div>
+          <div class="staff-name">Jenna Palmer</div>
+        </div>
+        <div class="staff-badge">Dirigeante principale</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar av-rose">MP</div>
+        <div>
+          <div class="staff-role">Co-Patronne</div>
+          <div class="staff-name">Megan Palmer</div>
+        </div>
+        <div class="staff-badge">Codirigeante</div>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar av-violet">RP</div>
+        <div>
+          <div class="staff-role">Chef d'équipe</div>
+          <div class="staff-name">Roy Palmer</div>
+        </div>
+        <div class="staff-badge">Management opérationnel</div>
+      </div>
+    </div>
+
+    <hr class="divider" style="margin-bottom:2.5rem;">
+
+    <div class="section-eyebrow">Formulaire</div>
+    <h2 class="section-title" style="margin-bottom:1.5rem;">Envoyer un message</h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+      <div class="contact-info">
+        <div class="info-card">
+          <div style="font-size:20px;flex-shrink:0;margin-top:2px;">📍</div>
+          <div><div class="info-label">Adresse</div><div class="info-val">Place des Cubes, Los Santos</div></div>
+        </div>
+        <div class="info-card">
+          <div style="font-size:20px;flex-shrink:0;margin-top:2px;">📧</div>
+          <div><div class="info-label">Email</div><div class="info-val">contact@tropicalheights.ls</div></div>
+        </div>
+        <div class="info-card">
+          <div style="font-size:20px;flex-shrink:0;margin-top:2px;">🔐</div>
+          <div><div class="info-label">Accès VIP</div><div class="info-val">Sur demande et validation de la direction uniquement</div></div>
+        </div>
+      </div>
+
+      <div class="contact-form-block">
+        <div>
+          <label>Prénom et Nom</label>
+          <input type="text" id="c-nom" placeholder="Votre nom complet">
+        </div>
+        <div>
+          <label>Objet</label>
+          <select id="c-objet">
+            <option value="">Sélectionner...</option>
+            <option>Réservation table</option>
+            <option>Privatisation</option>
+            <option>Partenariat</option>
+            <option>Renseignement général</option>
+          </select>
+        </div>
+        <div>
+          <label>Message</label>
+          <textarea id="c-msg" placeholder="Votre message..."></textarea>
+        </div>
+        <button class="btn-form" onclick="submitContact()">Envoyer</button>
+        <div id="contact-success" class="form-success">Votre message a bien été envoyé. Nous reviendrons vers vous rapidement.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer><strong>Tropical Heights</strong> - Los Santos, Place des Cubes</footer>
+</div>
+
+<!-- VIP -->
+<div id="page-vip" class="page">
+  <div class="page-header" style="text-align:center;">
+    <div class="page-header-inner">
+      <div class="page-header-eye">Accès exclusif</div>
+      <h2>Membership <em>VIP</em></h2>
+      <p>Un cercle ferme reserve a ceux qui veulent vivre le Tropical Heights autrement. Disponible sur demande et validation de la direction.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="vip-perks-grid">
+      <div class="vip-perk"><div class="vip-perk-icon">⚡</div><div class="vip-perk-name">Accès prioritaire</div><div class="vip-perk-desc">Entrée sans attente, liste VIP garantie.</div></div>
+      <div class="vip-perk"><div class="vip-perk-icon">🪑</div><div class="vip-perk-name">Table réservée</div><div class="vip-perk-desc">Table garantie chaque soir sur simple demande.</div></div>
+      <div class="vip-perk"><div class="vip-perk-icon">🍾</div><div class="vip-perk-name">Service bottling</div><div class="vip-perk-desc">Service de bouteille dédié, accès bar en priorité.</div></div>
+      <div class="vip-perk"><div class="vip-perk-icon">🔔</div><div class="vip-perk-name">Invitations privées</div><div class="vip-perk-desc">Accès aux soirées et événements non publics.</div></div>
+      <div class="vip-perk"><div class="vip-perk-icon">🌴</div><div class="vip-perk-name">Lounge exclusif</div><div class="vip-perk-desc">Espace réservé aux membres, à l'écart de la foule.</div></div>
+      <div class="vip-perk"><div class="vip-perk-icon">📱</div><div class="vip-perk-name">Contact direct</div><div class="vip-perk-desc">Ligne directe avec la direction du club.</div></div>
+    </div>
+
+    <div class="vip-form" id="vip-form-block">
+      <div class="vip-form-title">Demander un accès VIP</div>
+      <div class="vip-form-sub">Remplissez le formulaire. Votre demande sera examinée par la direction. Vous recevrez une confirmation si votre accès est validé.</div>
+      <div class="vip-form-grid">
+        <div class="vip-form-group"><label>Prenom</label><input type="text" id="vip-prenom" placeholder="Votre prénom"></div>
+        <div class="vip-form-group"><label>Nom</label><input type="text" id="vip-nom" placeholder="Votre nom"></div>
+      </div>
+      <div class="vip-form-group" style="margin-bottom:12px;">
+        <label>Numéro de téléphone</label>
+        <input type="tel" id="vip-tel" placeholder="Votre numéro">
+      </div>
+      <div class="vip-form-group" style="margin-bottom:12px;">
+        <label>Rang souhaité</label>
+        <select id="vip-rang">
+          <option value="">Sélectionner...</option>
+          <option>Gold - Accès soirées standard</option>
+          <option>Platinum - Accès complet + lounge</option>
+          <option>Black - Accès illimité sur invitation</option>
+        </select>
+      </div>
+      <p class="vip-nb">Votre demande sera enregistrée. Le statut de paiement sera validé par notre équipe. Aucun accès sans confirmation explicite de la direction.</p>
+      <button class="btn-vip" onclick="submitVIP()">Envoyer ma demande</button>
+    </div>
+
+    <div class="vip-success" id="vip-success">
+      <div class="vip-success-icon">✦</div>
+      <div class="vip-success-title">Demande enregistrée</div>
+      <div class="vip-success-msg">Votre demande a bien été transmise à la direction de Tropical Heights.<br>Notre équipe examinera votre dossier et vous contactera pour confirmer votre accès et le règlement.</div>
+    </div>
+  </div>
+  <footer><strong>Tropical Heights</strong> - Membership sur validation de la direction uniquement</footer>
+</div>
+
+<script>
+// Intersection Observer pour les éléments qui apparaissent au scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, entry.target.dataset.delay || 0);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+function observePage(pageId) {
+  const page = document.getElementById('page-' + pageId);
+  const els = page.querySelectorAll(
+    '.feature-card, .info-card, .callout, .menu-item, .event-card, .staff-card, .vip-perk, .vip-form, .contact-card, .carte-note, .carte-section-title'
+  );
+  els.forEach((el, i) => {
+    el.classList.add('anim-ready');
+    el.dataset.delay = (i % 8) * 60;
+    observer.observe(el);
+  });
+}
+
+function replayHeaderAnim(pageId) {
+  const page = document.getElementById('page-' + pageId);
+  // Re-trigger CSS animation en retirant/rajoutant la classe
+  const animated = page.querySelectorAll(
+    '.hero-badge, .hero-text h1, .hero-text p, .hero-btns, .page-header .page-header-eye, .page-header h2, .page-header p, .page-header .carte-filters'
+  );
+  animated.forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight; // reflow
+    el.style.animation = '';
+  });
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+  const page = document.getElementById('page-' + id);
+  page.classList.add('active');
+
+  const labels = ['entreprise','carte','evenements','personnel','vip'];
+  document.querySelectorAll('.nav-btn').forEach((b, i) => {
+    if (labels[i] === id) b.classList.add('active');
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  replayHeaderAnim(id);
+  observePage(id);
+}
+
+function filterCarte(cat, btn) {
+  document.querySelectorAll('.carte-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.carte-section').forEach(s => {
+    const show = (cat === 'all' || s.dataset.cat === cat);
+    s.style.display = show ? '' : 'none';
+    if (show) {
+      s.querySelectorAll('.menu-item').forEach((el, i) => {
+        el.classList.remove('visible');
+        el.dataset.delay = i * 50;
+        setTimeout(() => el.classList.add('visible'), 10);
+      });
+    }
+  });
+}
+
+async function submitContact() {
+  const nom   = document.getElementById('c-nom').value.trim();
+  const objet = document.getElementById('c-objet').value;
+  const msg   = document.getElementById('c-msg').value.trim();
+  if (!nom || !objet || !msg) { alert('Merci de remplir tous les champs.'); return; }
+
+  const btn = document.querySelector('#page-personnel .btn-form');
+  btn.textContent = 'Envoi en cours...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/mlgygvzw', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nom, objet, message: msg })
+    });
+    if (res.ok) {
+      document.getElementById('contact-success').style.display = 'block';
+      document.getElementById('c-nom').value = '';
+      document.getElementById('c-objet').value = '';
+      document.getElementById('c-msg').value = '';
+      btn.textContent = 'Envoyé';
+    } else {
+      alert('Une erreur est survenue. Veuillez réessayer.');
+      btn.textContent = 'Envoyer';
+      btn.disabled = false;
+    }
+  } catch(e) {
+    alert('Une erreur est survenue. Vérifiez votre connexion.');
+    btn.textContent = 'Envoyer';
+    btn.disabled = false;
+  }
+}
+
+async function submitVIP() {
+  const prenom = document.getElementById('vip-prenom').value.trim();
+  const nom    = document.getElementById('vip-nom').value.trim();
+  const tel    = document.getElementById('vip-tel').value.trim();
+  const rang   = document.getElementById('vip-rang').value;
+  if (!prenom || !nom || !tel || !rang) { alert('Merci de remplir tous les champs.'); return; }
+
+  const btn = document.querySelector('.btn-vip');
+  btn.textContent = 'Envoi en cours...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/mzdldwok', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prenom, nom, telephone: tel, rang })
+    });
+    if (res.ok) {
+      const formBlock = document.getElementById('vip-form-block');
+      const success   = document.getElementById('vip-success');
+      formBlock.style.transition = 'opacity 0.4s ease';
+      formBlock.style.opacity = '0';
+      setTimeout(() => {
+        formBlock.style.display = 'none';
+        success.style.display = 'block';
+        success.style.opacity = '0';
+        success.style.transition = 'opacity 0.4s ease';
+        setTimeout(() => { success.style.opacity = '1'; }, 20);
+      }, 400);
+    } else {
+      alert('Une erreur est survenue. Veuillez réessayer.');
+      btn.textContent = 'Envoyer ma demande';
+      btn.disabled = false;
+    }
+  } catch(e) {
+    alert('Une erreur est survenue. Vérifiez votre connexion.');
+    btn.textContent = 'Envoyer ma demande';
+    btn.disabled = false;
+  }
+}
+
+// Init page d'accueil
+document.addEventListener('DOMContentLoaded', () => {
+  observePage('entreprise');
+});
+</script>
+</body>
+</html>
