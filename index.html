@@ -509,9 +509,13 @@ footer strong { color: var(--gold); }
 <div id="page-entreprise" class="page active">
 
   <!-- BANNIERE : remplacer le contenu du banner-slot par une balise <img src="votre-image.jpg"> -->
-<div class="banner-slot">
-  <img src="banniere.jpg">
-</div>
+  <div class="banner-slot">
+    <div class="banner-placeholder">
+      <div class="banner-placeholder-icon">🌴</div>
+      <div>Banniere a personnaliser</div>
+      <div style="font-size:11px;margin-top:4px;opacity:0.6">Remplacer par une image dans le code</div>
+    </div>
+  </div>
 
   <div class="hero-text">
     <div class="hero-badge">Los Santos, Place des Cubes</div>
@@ -578,49 +582,52 @@ footer strong { color: var(--gold); }
     </div>
   </div>
   <div class="carte-content">
-    <div class="carte-note">Les prix seront fixés en accord avec la concurrence locale afin de préserver l'équilibre du marché.</div>
     <div class="carte-section" data-cat="signatures">
       <div class="carte-section-title">Cocktails signatures maison</div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Viva Los Santos</span><span class="menu-badge">Signature</span></div><div class="menu-item-desc">Rhum epice, liqueur de fruit de la passion, jus d'ananas, sirop de vanille, bitter exotique, flambé au rhum brun</div></div>
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Jackpot Royale</span><span class="menu-badge">Signature</span></div><div class="menu-item-desc">Vodka infusée à la fraise, champagne, purée de framboise, zeste de citron, perles d'or comestibles</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🍹</span>Viva Los Santos</span><span class="menu-badge">350$</span></div><div class="menu-item-desc">Rhum épicé, liqueur de fruit de la passion, jus d'ananas, sirop de vanille, bitter exotique, flambé au rhum brun</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🥂</span>Jackpot Royale</span><span class="menu-badge">450$</span></div><div class="menu-item-desc">Vodka infusée à la fraise, champagne, purée de framboise, zeste de citron, perles d'or comestibles</div></div>
       </div>
     </div>
     <div class="carte-section" data-cat="classiques">
       <div class="carte-section-title">Classiques incontournables</div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Mojito</span><span class="menu-badge menu-badge-violet">Classique</span></div><div class="menu-item-desc">Rhum, menthe, citron vert, sucre, eau gazeuse</div></div>
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Margarita</span><span class="menu-badge menu-badge-violet">Classique</span></div><div class="menu-item-desc">Tequila, Cointreau, citron vert, sel</div></div>
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Cosmopolitan</span><span class="menu-badge menu-badge-violet">Classique</span></div><div class="menu-item-desc">Vodka, Cointreau, jus de cranberry, citron vert</div></div>
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Mai Tai</span><span class="menu-badge menu-badge-violet">Classique</span></div><div class="menu-item-desc">Rhum ambré, rhum blanc, triple sec, orgeat, citron vert</div></div>
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Old Fashioned</span><span class="menu-badge menu-badge-violet">Classique</span></div><div class="menu-item-desc">Bourbon, sucre, bitter, zeste d'orange</div></div>
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Piña Colada</span><span class="menu-badge menu-badge-violet">Classique</span></div><div class="menu-item-desc">Rhum, crème de coco, jus d'ananas</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🌿</span>Mojito</span><span class="menu-badge menu-badge-violet">200$</span></div><div class="menu-item-desc">Rhum, menthe, citron vert, sucre, eau gazeuse</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🍋</span>Margarita</span><span class="menu-badge menu-badge-violet">200$</span></div><div class="menu-item-desc">Tequila, Cointreau, citron vert, sel</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🍸</span>Cosmopolitan</span><span class="menu-badge menu-badge-violet">220$</span></div><div class="menu-item-desc">Vodka, Cointreau, jus de cranberry, citron vert</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🌺</span>Mai Tai</span><span class="menu-badge menu-badge-violet">250$</span></div><div class="menu-item-desc">Rhum ambré, rhum blanc, triple sec, orgeat, citron vert</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🥃</span>Old Fashioned</span><span class="menu-badge menu-badge-violet">280$</span></div><div class="menu-item-desc">Bourbon, sucre, bitter, zeste d'orange</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🥥</span>Piña Colada</span><span class="menu-badge menu-badge-violet">200$</span></div><div class="menu-item-desc">Rhum, crème de coco, jus d'ananas</div></div>
       </div>
     </div>
     <div class="carte-section" data-cat="classiques">
       <div class="carte-section-title">Spiritueux et vins</div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="menu-item-name" style="margin-bottom:4px">Whisky, Vodka, Rhum</div><div class="menu-item-desc">Sélection premium sur demande</div></div>
-        <div class="menu-item"><div class="menu-item-name" style="margin-bottom:4px">Champagne et vins</div><div class="menu-item-desc">Carte disponible sur place</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🥃</span>Whisky</span><span class="menu-badge menu-badge-violet">300$</span></div><div class="menu-item-desc">Sélection premium sur demande</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🍾</span>Vodka</span><span class="menu-badge menu-badge-violet">250$</span></div><div class="menu-item-desc">Sélection premium sur demande</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🍹</span>Rhum</span><span class="menu-badge menu-badge-violet">250$</span></div><div class="menu-item-desc">Sélection premium sur demande</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🥂</span>Champagne</span><span class="menu-badge menu-badge-violet">800$</span></div><div class="menu-item-desc">Bouteille, carte disponible sur place</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🍷</span>Vin sélection</span><span class="menu-badge menu-badge-violet">600$</span></div><div class="menu-item-desc">Bouteille, carte disponible sur place</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">✨</span>Bouteille premium</span><span class="menu-badge">3 000 - 5 000$</span></div><div class="menu-item-desc">Sur demande, selon disponibilités</div></div>
       </div>
     </div>
     <div class="carte-section" data-cat="sansalcool">
       <div class="carte-section-title">Sans alcool</div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Sunset Dream</span></div><div class="menu-item-desc">Jus de mangue, purée de framboise, tonic hibiscus, citron vert</div></div>
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Tropical Kiss</span></div><div class="menu-item-desc">Jus d'ananas, lait de coco, sirop de fraise, basilic frais</div></div>
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Virgin Mojito</span></div><div class="menu-item-desc">Menthe, citron vert, sucre de canne, eau gazeuse</div></div>
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Sodas et jus</span></div><div class="menu-item-desc">Coca-Cola, Sprite, Fanta - jus orange, pomme, cranberry, ananas</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🌅</span>Sunset Dream</span><span class="menu-badge menu-badge-violet">150$</span></div><div class="menu-item-desc">Jus de mangue, purée de framboise, tonic hibiscus, citron vert</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🌸</span>Tropical Kiss</span><span class="menu-badge menu-badge-violet">150$</span></div><div class="menu-item-desc">Jus d'ananas, lait de coco, sirop de fraise, basilic frais</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🌿</span>Virgin Mojito</span><span class="menu-badge menu-badge-violet">150$</span></div><div class="menu-item-desc">Menthe, citron vert, sucre de canne, eau gazeuse</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🧃</span>Sodas et jus</span><span class="menu-badge menu-badge-violet">150$</span></div><div class="menu-item-desc">Coca-Cola, Sprite, Fanta - jus orange, pomme, cranberry, ananas</div></div>
       </div>
     </div>
     <div class="carte-section" data-cat="snacks">
       <div class="carte-section-title">Apéritifs et snacks</div>
       <div class="menu-grid">
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Plateau tapas exotiques</span></div><div class="menu-item-desc">Crevettes épicées, calamars frits, guacamole maison</div></div>
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Mini-burgers signature</span></div><div class="menu-item-desc">Boeuf wagyu, cheddar affiné, sauce secrète</div></div>
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Frites de patate douce</span></div><div class="menu-item-desc">Sauce truffe maison</div></div>
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Planche charcuteries</span></div><div class="menu-item-desc">Fromages et charcuteries selectionnes</div></div>
-        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name">Nachos deluxe</span></div><div class="menu-item-desc">Cheddar fondu, jalapeños, crème aigre, pico de gallo</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🦐</span>Plateau tapas exotiques</span><span class="menu-badge">200$</span></div><div class="menu-item-desc">Crevettes épicées, calamars frits, guacamole maison</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🍔</span>Mini-burgers signature</span><span class="menu-badge">250$</span></div><div class="menu-item-desc">Boeuf wagyu, cheddar affiné, sauce secrète</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🍟</span>Frites de patate douce</span><span class="menu-badge">150$</span></div><div class="menu-item-desc">Sauce truffe maison</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🧀</span>Planche charcuteries</span><span class="menu-badge">220$</span></div><div class="menu-item-desc">Fromages et charcuteries sélectionnés</div></div>
+        <div class="menu-item"><div class="menu-item-top"><span class="menu-item-name"><span style="margin-right:6px">🫔</span>Nachos deluxe</span><span class="menu-badge">180$</span></div><div class="menu-item-desc">Cheddar fondu, jalapeños, crème aigre, pico de gallo</div></div>
       </div>
     </div>
   </div>
@@ -735,6 +742,10 @@ footer strong { color: var(--gold); }
         <div>
           <label>Prénom et Nom</label>
           <input type="text" id="c-nom" placeholder="Votre nom complet">
+        </div>
+        <div>
+          <label>Numéro de téléphone</label>
+          <input type="tel" id="c-tel" placeholder="Votre numéro">
         </div>
         <div>
           <label>Objet</label>
@@ -885,9 +896,10 @@ function filterCarte(cat, btn) {
 
 async function submitContact() {
   const nom   = document.getElementById('c-nom').value.trim();
+  const tel   = document.getElementById('c-tel').value.trim();
   const objet = document.getElementById('c-objet').value;
   const msg   = document.getElementById('c-msg').value.trim();
-  if (!nom || !objet || !msg) { alert('Merci de remplir tous les champs.'); return; }
+  if (!nom || !tel || !objet || !msg) { alert('Merci de remplir tous les champs.'); return; }
 
   const btn = document.querySelector('#page-personnel .btn-form');
   btn.textContent = 'Envoi en cours...';
@@ -897,7 +909,7 @@ async function submitContact() {
     const res = await fetch('https://formspree.io/f/mlgygvzw', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nom, objet, message: msg })
+      body: JSON.stringify({ nom, telephone: tel, objet, message: msg })
     });
     if (res.ok) {
       document.getElementById('contact-success').style.display = 'block';
