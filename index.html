@@ -323,6 +323,73 @@ nav {
 .btn-vip:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,196,66,0.3); }
 .vip-nb { font-size: 12px; color: var(--text-muted); margin-top: 0.75rem; font-style: italic; }
 .vip-success { display: none; text-align: center; padding: 2.5rem 1rem; }
+
+/* VIP TIERS */
+.vip-tiers {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-bottom: 2.5rem;
+}
+.vip-tier {
+  border-radius: 18px; padding: 1.75rem 1.4rem;
+  border: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 4px;
+  position: relative; overflow: hidden;
+}
+.vip-tier-gold {
+  background: linear-gradient(160deg, rgba(245,196,66,0.1) 0%, var(--bg-card) 60%);
+  border-color: rgba(245,196,66,0.3);
+}
+.vip-tier-platinum {
+  background: linear-gradient(160deg, rgba(180,180,220,0.1) 0%, var(--bg-card) 60%);
+  border-color: rgba(180,180,220,0.3);
+}
+.vip-tier-black {
+  background: linear-gradient(160deg, rgba(74,45,138,0.4) 0%, #0D0820 60%);
+  border-color: rgba(74,45,138,0.6);
+}
+.vip-tier-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; margin-bottom: 0.25rem;
+}
+.vip-tier-gold .vip-tier-label { color: var(--gold); }
+.vip-tier-platinum .vip-tier-label { color: #C8C8E8; }
+.vip-tier-black .vip-tier-label { color: #BBA8F0; }
+.vip-tier-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; font-weight: 900; color: var(--text-main);
+  margin-bottom: 0.1rem;
+}
+.vip-tier-price {
+  font-size: 20px; font-weight: 700; margin-bottom: 1rem;
+}
+.vip-tier-gold .vip-tier-price { color: var(--gold); }
+.vip-tier-platinum .vip-tier-price { color: #C8C8E8; }
+.vip-tier-black .vip-tier-price { color: #BBA8F0; }
+.vip-tier-price span {
+  font-size: 12px; font-weight: 400; color: var(--text-muted); margin-left: 2px;
+}
+.vip-tier-divider {
+  border: none; border-top: 1px solid var(--border); margin: 0.25rem 0 1rem;
+}
+.vip-tier-perks { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.vip-tier-perks li {
+  font-size: 13px; color: var(--text-muted); line-height: 1.5;
+  padding-left: 16px; position: relative;
+}
+.vip-tier-perks li::before {
+  content: '–'; position: absolute; left: 0;
+  color: var(--text-muted); opacity: 0.5;
+}
+.vip-tier-black .vip-tier-perks li { color: rgba(240,235,248,0.75); }
+.vip-tier-invitation {
+  margin-top: auto; padding-top: 1rem;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: #BBA8F0;
+  border-top: 1px solid rgba(74,45,138,0.4);
+}
+@media (max-width: 720px) {
+  .vip-tiers { grid-template-columns: 1fr; }
+}
 .vip-success-icon { font-size: 44px; margin-bottom: 1rem; }
 .vip-success-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
 .vip-success-msg { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
@@ -774,27 +841,67 @@ footer strong { color: var(--gold); }
 <!-- VIP -->
 <div id="page-vip" class="page">
   <div class="page-header" style="text-align:center;">
-    <div class="page-header-inner" style="text-align:center;">
+    <div class="page-header-inner" style="text-align:center;max-width:680px;margin:0 auto;">
       <div class="page-header-eye">Accès exclusif</div>
       <h2>Membership <em>VIP</em></h2>
-      <p>Un cercle ferme reserve a ceux qui veulent vivre le Tropical Heights autrement. Disponible sur demande et validation de la direction.</p>
+      <p style="margin:0 auto;">Un cercle fermé réservé à ceux qui souhaitent vivre le Tropical Heights autrement. Disponible sur demande et validation de la direction.</p>
     </div>
   </div>
   <div class="section">
-    <div class="vip-perks-grid">
-      <div class="vip-perk"><div class="vip-perk-icon">⚡</div><div class="vip-perk-name">Accès prioritaire</div><div class="vip-perk-desc">Entrée sans attente, liste VIP garantie.</div></div>
-      <div class="vip-perk"><div class="vip-perk-icon">🪑</div><div class="vip-perk-name">Table réservée</div><div class="vip-perk-desc">Table garantie chaque soir sur simple demande.</div></div>
-      <div class="vip-perk"><div class="vip-perk-icon">🍾</div><div class="vip-perk-name">Service bottling</div><div class="vip-perk-desc">Service de bouteille dédié, accès bar en priorité.</div></div>
-      <div class="vip-perk"><div class="vip-perk-icon">🔔</div><div class="vip-perk-name">Invitations privées</div><div class="vip-perk-desc">Accès aux soirées et événements non publics.</div></div>
-      <div class="vip-perk"><div class="vip-perk-icon">🌴</div><div class="vip-perk-name">Lounge exclusif</div><div class="vip-perk-desc">Espace réservé aux membres, à l'écart de la foule.</div></div>
-      <div class="vip-perk"><div class="vip-perk-icon">📱</div><div class="vip-perk-name">Contact direct</div><div class="vip-perk-desc">Ligne directe avec la direction du club.</div></div>
+
+    <div class="section-eyebrow" style="margin-bottom:1.25rem;">Formules</div>
+    <div class="vip-tiers">
+
+      <!-- GOLD -->
+      <div class="vip-tier vip-tier-gold">
+        <div class="vip-tier-label">Formule</div>
+        <div class="vip-tier-name">Gold</div>
+        <div class="vip-tier-price">2 500$<span>/ semaine</span></div>
+        <hr class="vip-tier-divider">
+        <ul class="vip-tier-perks">
+          <li>Entrée prioritaire, liste VIP garantie</li>
+          <li>Table réservée sur simple demande</li>
+          <li>Accès à la salle privée à l'écart</li>
+        </ul>
+      </div>
+
+      <!-- PLATINUM -->
+      <div class="vip-tier vip-tier-platinum">
+        <div class="vip-tier-label">Formule</div>
+        <div class="vip-tier-name">Platinum</div>
+        <div class="vip-tier-price">5 000$<span>/ semaine</span></div>
+        <hr class="vip-tier-divider">
+        <ul class="vip-tier-perks">
+          <li>Tout Gold inclus</li>
+          <li>Invitations aux soirées et événements privés</li>
+          <li>Ligne directe avec la direction</li>
+          <li>Service attentionné et personnalisé</li>
+        </ul>
+      </div>
+
+      <!-- BLACK -->
+      <div class="vip-tier vip-tier-black">
+        <div class="vip-tier-label">Formule</div>
+        <div class="vip-tier-name">Black</div>
+        <div class="vip-tier-price">10 000$<span>/ semaine</span></div>
+        <hr class="vip-tier-divider">
+        <ul class="vip-tier-perks">
+          <li>Tout Platinum inclus</li>
+          <li>Service bouteille dédié à table</li>
+          <li>Prise en charge au départ sur demande</li>
+          <li>Accès permanent, aucune justification requise</li>
+          <li>Demandes spéciales gérées en amont par la direction</li>
+        </ul>
+        <div class="vip-tier-invitation">✦ Sur invitation de la direction uniquement</div>
+      </div>
+
     </div>
 
     <div class="vip-form" id="vip-form-block">
       <div class="vip-form-title">Demander un accès VIP</div>
       <div class="vip-form-sub">Remplissez le formulaire. Votre demande sera examinée par la direction. Vous recevrez une confirmation si votre accès est validé.</div>
       <div class="vip-form-grid">
-        <div class="vip-form-group"><label>Prenom</label><input type="text" id="vip-prenom" placeholder="Votre prénom"></div>
+        <div class="vip-form-group"><label>Prénom</label><input type="text" id="vip-prenom" placeholder="Votre prénom"></div>
         <div class="vip-form-group"><label>Nom</label><input type="text" id="vip-nom" placeholder="Votre nom"></div>
       </div>
       <div class="vip-form-group" style="margin-bottom:12px;">
@@ -805,9 +912,9 @@ footer strong { color: var(--gold); }
         <label>Rang souhaité</label>
         <select id="vip-rang">
           <option value="">Sélectionner...</option>
-          <option>Gold - Accès soirées standard</option>
-          <option>Platinum - Accès complet + lounge</option>
-          <option>Black - Accès illimité sur invitation</option>
+          <option>Gold — 2 500$ / semaine</option>
+          <option>Platinum — 5 000$ / semaine</option>
+          <option>Black — 10 000$ / semaine</option>
         </select>
       </div>
       <p class="vip-nb">Votre demande sera enregistrée. Le statut de paiement sera validé par notre équipe. Aucun accès sans confirmation explicite de la direction.</p>
